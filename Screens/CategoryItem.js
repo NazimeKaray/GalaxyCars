@@ -1,17 +1,18 @@
 import { View, Text, Pressable, StyleSheet} from "react-native"
 import{Card,Title,Paragraph} from "react-native-paper"
 import { useNavigation } from "@react-navigation/native"
-
 function CategoryItem({item}){
-
     const Navigation=useNavigation();
-    const VehiclesByCategoryIdHandler=()=>{
+
+    const VehiclesByCategoryIdHandler=(id)=>{
         Navigation.navigate('Vehicles',{
-            id:item.id
-        })
+            id:id
+        }) 
     }
+
+
     return (
-        <Pressable onPress={VehiclesByCategoryIdHandler}>
+        <Pressable onPress={()=>VehiclesByCategoryIdHandler(item.id)}>
             <Card style={styles.card}>
                 <Card.Content>
                     <Title>{item.categoryName}</Title>
