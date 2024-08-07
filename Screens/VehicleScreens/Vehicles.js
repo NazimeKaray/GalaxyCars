@@ -1,14 +1,19 @@
-import { Text,View,StyleSheet } from "react-native-paper"
+import React from "react";
+import {  Text, View, StyleSheet } from 'react-native';
 import { useGetVehiclesByCategoryIdQuery } from "../../Apis/CategoryApi";
+import { FlatList } from "react-native-gesture-handler";
+
 
 function Vehicles({route,Navigation}){
     const selectedCategoryId=route.params?.id;
    
-    console.log("selectedCategoryId")
-    console.log(selectedCategoryId)
+    
     const {data,isLoading}=useGetVehiclesByCategoryIdQuery(selectedCategoryId)
+    console.log("selectedCategoryId")
+    
+ 
     if(isLoading){ 
-        return( 
+        return(  
             <>
             <Text>
                 Loading...
@@ -16,10 +21,22 @@ function Vehicles({route,Navigation}){
             </>
         )
     }
+    
+
+if(data.vehicles!==undefined){
     return(
-        <></>
+        <>
+        <FlatList data={data.vehicles} keyExtractor={(item) => item.id.toString()}
+             renderItem={({item})=> (
+                <View>
+                    <Text>
+                        {item.brand}
+                    </Text>
+                </View> 
+             ) } ></FlatList>
+        </>
     )
 }
-
+}
 
 export default Vehicles
